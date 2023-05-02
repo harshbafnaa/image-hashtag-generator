@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image HashTag Generator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <h1>Image HashTag Generator</h1>
+    <form id="upload-form">
+      <input type="file" name="file">
+      <button type="submit">Generate Hashtags</button>
+    </form>
+    {% if hashtags %}
+      <h2>Generated Hashtags</h2>
+      <ul>
+          {% for hashtag in hashtags %}
+          <li>{{ hashtag }}</li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+
+
+    <div id="result"></div>
+    <script>
+      const form = document.querySelector('#upload-form');
+      const result = document.querySelector('#result');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const response = await fetch('/', {
+          method: 'POST',
+          body: formData,
+        });
+        const hashtags = await response.json();
+        const hashtagsList = document.createElement('ul');
+        hashtags.forEach((hashtag) => {
+          const li = document.createElement('li');
+          li.textContent = `#${hashtag}`;
+          hashtagsList.appendChild(li);
+        });
+        result.innerHTML = '';
+        result.appendChild(hashtagsList);
+        // result.innerHTML = hashtags.map(hashtag => `#${hashtag[1]}`).join(' ');
+      });
+      
+    </script>
+  </body>
+</html>
