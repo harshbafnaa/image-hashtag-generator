@@ -15,7 +15,7 @@ This is a Flask app that takes an image as input and generates a list of hashtag
 ## Cloning
 - Clone the repository:
 ````bashCopy code
-git clone https://github.com/<username>/image-hashtag-generator.git
+git clone https://github.com/harshbafnaa/image-hashtag-generator.git
 ````
 - Install the required packages:
 ````Copy code
